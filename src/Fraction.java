@@ -107,10 +107,13 @@ public class Fraction {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Fraction fraction = (Fraction) o;
-        return numerator == fraction.numerator &&
-                denominator == fraction.denominator;
+        if (o == null || getClass() != o.getClass()||!(o instanceof Fraction)) return false;
+        Fraction other = (Fraction)o;
+        other.toLowestTerms();
+        this.toLowestTerms();
+        if (other.numerator == this.numerator && other.denominator == this.denominator) {
+            return Objects.equals(other, this);
+        }
     }
 
     @Override

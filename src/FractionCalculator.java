@@ -23,10 +23,7 @@ public class FractionCalculator {
                 "Please enter your fractions in the form a/b, where a and b are integers. \n" +
                 "-------------------------------------------------------------------------------\n" +
                 "Please enter an operation (+, -, /, *, = or Q to quit):");
-        int a = 1/2;
-        int b = 1/2;
-        int c = a + b;
-        System.out.println(c);
+
 
     }
 }
