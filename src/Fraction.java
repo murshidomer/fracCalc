@@ -17,6 +17,29 @@ public class Fraction {
         denominator = 1;
     }
 
+    public Fraction subtract(Fraction other) {
+        Fraction subtractionResult = new Fraction();
+        subtractionResult.numerator =
+                (this.numerator * other.denominator) - (other.numerator * this.denominator);
+        subtractionResult.denominator = this.denominator * other.denominator;
+        return subtractionResult;
+
+    }
+    public Fraction divide(Fraction other) {
+        Fraction divisionResult = new Fraction();
+        divisionResult.numerator = other.numerator * this.denominator;
+        divisionResult.denominator = other.denominator * this.numerator;
+        return divisionResult;
+    }
+
+    public Fraction multiply(Fraction other) {
+        Fraction mutliplicationResult = new Fraction();
+        mutliplicationResult.numerator = other.numerator * this.numerator;
+        mutliplicationResult.denominator = other.denominator * this.denominator;
+        return mutliplicationResult;
+    }
+
+
     public Fraction(int numerator, int denominator) throws IllegalArgumentException {
         this.numerator = numerator;
         this.denominator = denominator;
@@ -73,7 +96,6 @@ public class Fraction {
         additionResult.numerator =
                 (this.numerator * other.denominator) + (other.numerator * this.denominator);
         additionResult.denominator = this.denominator * other.denominator;
-        additionResult.toLowestTerms();
         return additionResult;
     }
 
