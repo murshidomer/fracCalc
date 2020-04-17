@@ -17,29 +17,6 @@ public class Fraction {
         denominator = 1;
     }
 
-    public Fraction subtract(Fraction other) {
-        Fraction subtractionResult = new Fraction();
-        subtractionResult.numerator =
-                (this.numerator * other.denominator) - (other.numerator * this.denominator);
-        subtractionResult.denominator = this.denominator * other.denominator;
-        return subtractionResult;
-
-    }
-    public Fraction divide(Fraction other) {
-        Fraction divisionResult = new Fraction();
-        divisionResult.numerator = other.numerator * this.denominator;
-        divisionResult.denominator = other.denominator * this.numerator;
-        return divisionResult;
-    }
-
-    public Fraction multiply(Fraction other) {
-        Fraction mutliplicationResult = new Fraction();
-        mutliplicationResult.numerator = other.numerator * this.numerator;
-        mutliplicationResult.denominator = other.denominator * this.denominator;
-        return mutliplicationResult;
-    }
-
-
     public Fraction(int numerator, int denominator) throws IllegalArgumentException {
         this.numerator = numerator;
         this.denominator = denominator;
@@ -48,13 +25,6 @@ public class Fraction {
             this.numerator *= Integer.signum(denominator);
             this.denominator *= Integer.signum(denominator);
         }
-
-    }
-
-    public void toLowestTerms() {
-        int divisor = gcd(this.numerator, this.denominator);
-        this.numerator /= divisor;
-        this.denominator /= divisor;
 
     }
 
@@ -78,6 +48,39 @@ public class Fraction {
         Fraction fraction = new Fraction(numerator, denominator);
     }
 
+    public Fraction subtract(Fraction other) {
+        Fraction subtractionResult = new Fraction();
+        subtractionResult.numerator =
+                (this.numerator * other.denominator) - (other.numerator * this.denominator);
+        subtractionResult.denominator = this.denominator * other.denominator;
+        subtractionResult.toLowestTerms();
+        return subtractionResult;
+
+    }
+
+    public Fraction divide(Fraction other) {
+        Fraction divisionResult = new Fraction();
+        divisionResult.numerator = other.numerator * this.denominator;
+        divisionResult.denominator = other.denominator * this.numerator;
+        divisionResult.toLowestTerms();
+        return divisionResult;
+    }
+
+    public Fraction multiply(Fraction other) {
+        Fraction mutliplicationResult = new Fraction();
+        mutliplicationResult.numerator = other.numerator * this.numerator;
+        mutliplicationResult.denominator = other.denominator * this.denominator;
+        mutliplicationResult.toLowestTerms();
+        return mutliplicationResult;
+    }
+
+    public void toLowestTerms() {
+        int divisor = gcd(this.numerator, this.denominator);
+        this.numerator /= divisor;
+        this.denominator /= divisor;
+
+    }
+
     public int getNumerator() {
         return numerator;
     }
@@ -96,19 +99,22 @@ public class Fraction {
         additionResult.numerator =
                 (this.numerator * other.denominator) + (other.numerator * this.denominator);
         additionResult.denominator = this.denominator * other.denominator;
+        additionResult.toLowestTerms();
         return additionResult;
     }
 
     @Override
     public String toString() {
-        return numerator + "/" + denominator;
+        if (denominator == 1) return numerator + "";
+        else
+            return numerator + "/" + denominator;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()||!(o instanceof Fraction)) return false;
-        Fraction other = (Fraction)o;
+        if (o == null || getClass() != o.getClass() || !(o instanceof Fraction)) return false;
+        Fraction other = (Fraction) o;
         other.toLowestTerms();
         this.toLowestTerms();
         if (other.numerator == this.numerator && other.denominator == this.denominator) {
