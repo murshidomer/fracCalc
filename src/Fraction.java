@@ -114,6 +114,7 @@ public class Fraction {
         if (other.numerator == this.numerator && other.denominator == this.denominator) {
             return Objects.equals(other, this);
         }
+        return true;
     }
 
     @Override

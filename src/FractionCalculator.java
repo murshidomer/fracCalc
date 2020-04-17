@@ -1,10 +1,19 @@
 import java.util.Scanner;
 
 public class FractionCalculator {
-    //enter fractions and operations, calculate result
-    //run until told to quit
+
     private final String message = "Invalid Fraction. Please enter (a/b) or (a), where a and b " +
             "are integers and b is not zero: ";
+
+    private static int numerator, denominator;
+
+    public void welcome() {
+        System.out.println("This program is a fraction calculator \n" +
+                "It will add subtract, multply and divide fractions until you type Q to quit \n" +
+                "Please enter your fractions in the form a/b, where a and b are integers. \n" +
+                "-------------------------------------------------------------------------------\n");
+        ;
+    }
 
     public String getOperation(Scanner operatorInput) {
         operatorInput = new Scanner(System.in);
@@ -19,43 +28,48 @@ public class FractionCalculator {
         return operatorString;
     }
 
-    public Fraction getFraction(Scanner inputFraction) {
+    public Fraction getFraction(Scanner fractionInput) {
+        boolean result;
+
+        String stringInput;
         Fraction fraction;
-        String s;
-        String pattern1 = "\\d+/\\d+" ;
-        String pattern2 = "\\d+";
-        int numerator, denominator;
+        FractionCalculator fractionCalculator = new FractionCalculator();
         System.out.println("Please enter a fraction (a/b) or integer (a): ");
-        s = inputFraction.nextLine();
-        while (!(s.matches(pattern1)||s.matches(pattern2))) {
+        stringInput = fractionInput.nextLine();
+        result = fractionCalculator.validtFraction(stringInput);
+        while (!(result)) {
             System.out.println(message);
-            s = inputFraction.next();
+            stringInput = fractionInput.nextLine();
+            result = fractionCalculator.validtFraction(stringInput);
         }
-        if (s.matches(pattern1)) {
-            String[] elements = s.split("/");
-            numerator = Integer.parseInt(elements[0]);
-            denominator = Integer.parseInt(elements[1]);
+        if ((denominator > 0))
             fraction = new Fraction(numerator, denominator);
-        } else {
-            numerator = Integer.parseInt(s);
+        else
             fraction = new Fraction(numerator);
-        }
         return fraction;
     }
 
- /*   public boolean validtFraction(String input) {
-
-    }*/
+    public boolean validtFraction(String input) {
+        String pattern1 = "-?\\d+/\\d+";
+        String pattern2 = "-?\\d+";
+//        int numerator, denominator;
+        if (!(input.matches(pattern1) || input.matches(pattern2))) return false;
+        if (input.matches(pattern1)) {
+            String[] elements = input.split("/");
+            numerator = (Math.abs(Integer.parseInt(elements[0])));
+            denominator = Integer.parseInt(elements[1]);
+        } else {
+            numerator = Math.abs(Integer.parseInt(input));
+        }
+        return true;
+    }
 
 
     public static void main(String[] args) {
-        System.out.println("This program is a fraction calculator \n" +
-                "It will add subtract, multply and divide fractions until you type Q to quit \n" +
-                "Please enter your fractions in the form a/b, where a and b are integers. \n" +
-                "-------------------------------------------------------------------------------\n");
         FractionCalculator fractionCalculator = new FractionCalculator();
         Fraction fraction = new Fraction();
         Scanner scanner = new Scanner(System.in);
+        fractionCalculator.welcome();
 //        String operation = fractionCalculator.getOperation(scanner);
         fraction = fractionCalculator.getFraction(scanner);
 //        char operatorChar = operation.charAt(0);
